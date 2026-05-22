@@ -1,0 +1,25 @@
+While deploying first time follow below steps
+
+1) Comment All 443 Services In nginx/default.conf
+
+2) docker compose up nginx_1 -d --build
+
+3) docker compose run --rm certbot certonly \
+  --webroot -w /var/www/certbot \
+  -d c2.ommnews.in \
+  -d www.c2.ommnews.in \
+  -d api-c2.ommnews.in \
+  -d crm-c2.ommnews.in \
+  -d upload-c2.ommnews.in \
+  --email ommdigitalwebsite@gmail.com \
+  --agree-tos --no-eff-email
+
+4) Step 3 After successfuly certificate created Run :  docker compose restart nginx_1
+
+
+
+*** Important Point to note
+1) If you already add a product with a varient and any one purchase it it's ok. 
+   but in future do not add any other Variants Options it could cause uncertainty.
+   ex : if you add a varient call color now if you created you cannot add another new varient
+   soluction : create a new prodouct with same details this time add both varient options

@@ -1,0 +1,7 @@
+/admin-panel/nginx
+/admin-panel/frontend
+/admin-panel/.gitignore
+/admin-panel/before_production_read.txt
+/admin-panel/docker-compose-local.yml
+/admin-panel/docker-compose.override.yml
+/admin-panel/docker-compose.yml

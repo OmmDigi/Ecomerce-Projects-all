@@ -1,0 +1,112 @@
+version: "3.8"
+
+networks:
+  custom_network:
+    driver: bridge
+
+services:
+  tc_frontend_1:
+    build: ./frontend
+    container_name: tc_frontend_1
+    ports:
+      - "3004:3000"
+    env_file:
+      - ./frontend/${ENV_NAME}
+    depends_on:
+      - tc_api_1
+      - tc_upload_api_1
+    networks:
+      - custom_network
+
+  tc_crm_1:
+    build: ./crm
+    container_name: tc_crm_1
+    ports:
+      - "6004:80"
+    env_file:
+      - ./crm/${ENV_NAME}
+    depends_on:
+      - tc_api_1
+      - tc_upload_api_1
+    networks:
+      - custom_network
+
+  tc_api_1:
+    build: ./api
+    container_name: tc_api_1
+    ports:
+      - "4004:3000"
+    env_file:
+      - ./api/${ENV_NAME}
+    depends_on:
+      - tc_postgres_1
+    volumes:
+      - ./logs/api-logs:/app/logs
+    networks:
+      - custom_network
+
+  tc_upload_api_1:
+    build: ./upload
+    container_name: tc_upload_api_1
+    ports:
+      -  "5004:3000"
+    env_file:
+      - ./upload/${ENV_NAME}
+    volumes:
+      - ./uploaded-files/uploads:/app/uploads
+      - ./uploaded-files/private:/app/private
+    depends_on:
+      - tc_postgres_1
+    networks:
+      - custom_network
+
+  tc_postgres_1:
+    image: postgres:17.4
+    container_name: tc_postgres_1
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - custom_network
+
+ # COMMENT OUT BECAUSE i am uploading this in a vps where nginx is the default server
+  # nginx_1:
+  #   image: nginx:latest
+  #   container_name: nginx_1
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx/${NGINX_CONF_FILE_NAME}:/etc/nginx/conf.d/default.conf
+  #     - ./certbot/conf:/etc/letsencrypt
+  #     - ./certbot/www:/var/www/certbot
+  #   depends_on:
+  #     - tc_frontend_1
+  #     - tc_api_1
+  #     - tc_upload_api_1
+  #     - tc_postgres_1
+  #   restart: always
+  #   networks:
+  #     - custom_network
+
+  # certbot:
+  #   image: certbot/certbot
+  #   volumes:
+  #     - ./certbot/conf:/etc/letsencrypt
+  #     - ./certbot/www:/var/www/certbot
+  #   entrypoint: >
+  #     sh -c "while true; do
+  #       certbot renew --webroot -w /var/www/certbot --quiet \
+  #       --deploy-hook 'docker exec nginx_1 nginx -s reload';
+  #       sleep 12h;
+  #     done"
+  #   depends_on:
+  #     - nginx_1
+
+volumes:
+  db_data:

@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  api_1:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: ${NODE_ENV}
+    command: npx nodemon --legacy-watch src/index.ts
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    working_dir: /app
+    environment:
+      - NODE_ENV=${NODE_ENV}
+
+  upload_api_1:
+    build:
+      context: ./upload
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: ${NODE_ENV}
+    command: npx nodemon --legacy-watch src/server.ts
+    volumes:
+      - ./upload:/app
+      - /app/node_modules
+    working_dir: /app
+    environment:
+      - NODE_ENV=${NODE_ENV}

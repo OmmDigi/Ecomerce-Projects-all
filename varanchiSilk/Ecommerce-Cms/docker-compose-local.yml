@@ -1,0 +1,72 @@
+version: "3.8"
+
+networks:
+  custom_network:
+    driver: bridge
+
+services:
+  ec_api_1:
+    build: ./api
+    container_name: ec_api_1
+    ports:
+     - "4009:3000"
+    env_file:
+      - ./api/${ENV_NAME}
+    depends_on:
+      - ec_postgres_1
+    volumes:
+      - ./logs/api-logs:/app/logs
+    networks:
+      - custom_network
+
+  ec_upload_api_1:
+    build: ./upload
+    container_name: ec_upload_api_1
+    ports:
+     - "5009:3000"
+    env_file:
+      - ./upload/${ENV_NAME}
+    volumes:
+      - ./uploaded-files/uploads:/app/uploads
+      - ./uploaded-files/private:/app/private
+    depends_on:
+      - ec_postgres_1
+    networks:
+      - custom_network
+
+  ec_postgres_1:
+    image: postgres:17.4
+    container_name: ec_postgres_1
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5438:5432"
+    networks:
+      - custom_network
+
+  ec_nginx:
+    image: nginx:latest
+    container_name: ec_nginx
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+      # - "80:80"
+      # - "443:443"
+    volumes:
+      - ./nginx/default.local.conf:/etc/nginx/conf.d/default.local.conf
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    depends_on:
+      - ec_api_1
+      - ec_upload_api_1
+      - ec_postgres_1
+    restart: always
+    networks:
+      - custom_network
+      
+volumes:
+  db_data:

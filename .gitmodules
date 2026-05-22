@@ -1,0 +1,3 @@
+[submodule "admin-panel"]
+	path = admin-panel
+	url = git@github.com:OmmDigi/Trinket-And-Casa.git

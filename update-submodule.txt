@@ -1,0 +1,12 @@
+FROM THE ROOT 
+
+git submodule update --remote --merge
+
+git add admin-panel
+git commit -m "chore: update admin-panel submodule"
+
+NOW SYNC FROM VS CODE EDITOR
+
+ON VAS
+
+git pull --recurse-submodules

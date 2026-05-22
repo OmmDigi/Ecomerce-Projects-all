@@ -1,0 +1,2 @@
+docker compose up -d --build c1_frontend_1 c1_crm_1 c1_api_1 c1_upload_api_1 c1_postgres_1
+docker compose down c1_frontend_1 c1_crm_1 c1_api_1 c1_upload_api_1 c1_postgres_1

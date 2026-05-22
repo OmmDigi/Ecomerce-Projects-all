@@ -1,0 +1,7 @@
+.git
+.env*
+/uploaded-files
+/uploaded-files/*
+/backups
+/backups/*
+logs
