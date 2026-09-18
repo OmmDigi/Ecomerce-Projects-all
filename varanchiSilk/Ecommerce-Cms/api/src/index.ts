@@ -28,6 +28,34 @@ const app = express();
 
 const API_PREFIX = "/api/v1";
 
+// FIX 1: Explicitly handle dynamic origins with credentials support
+const allowedOrigins = [
+  "http://localhost:3000", // Your local Next.js instance
+  // Add your frontend ngrok URL here without a trailing slash, e.g.:
+  // 'https://ngrok-free.app'
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow server-to-server requests or tools like Postman (which don't send an origin header)
+      console.log(origin);
+      if (!origin) return callback(null, true);
+
+      // Dynamically match regular localhost or any ngrok tunnel URL
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".ngrok-free.app")
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true, // MANDATORY: Allows cookies and authorization headers to pass through
+  }),
+);
+
 export const pool = new Pool(configDb());
 
 app.use(
@@ -38,34 +66,6 @@ app.use(
   },
   webHookRoutes,
 );
-
-const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",")
-  : ["http://localhost:3000", "http://localhost:3001", "http://localhost:8080"];
-
-if (process.env.NODE_ENV === "development") {
-  app.use(
-    cors({
-      origin: (_, callback) => {
-        callback(null, true); // allow every origin
-      },
-      credentials: true,
-    }),
-  );
-} else {
-  app.use(
-    cors({
-      origin: (origin, callback) => {
-        if (!origin || ALLOWED_ORIGINS.includes(origin)) {
-          callback(null, true);
-        } else {
-          callback(new Error("Not allowed by CORS"));
-        }
-      },
-      credentials: true,
-    }),
-  );
-}
 
 app.use(express.static(path.resolve(path.join(process.cwd(), "public"))));
 app.use(express.json({ limit: "100mb" }));

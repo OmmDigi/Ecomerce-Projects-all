@@ -14,13 +14,13 @@ services:
     networks:
       - custom_network
     ports:
-     - "6009:80"
+      - "6009:80"
 
   ec_api_1:
     build: ./api
     container_name: ec_api_1
     ports:
-     - "4009:3000"
+      - "4009:3000"
     env_file:
       - ./api/${ENV_NAME}
     depends_on:
@@ -34,7 +34,7 @@ services:
     build: ./upload
     container_name: ec_upload_api_1
     ports:
-     - "5009:3000"
+      - "5009:3000"
     env_file:
       - ./upload/${ENV_NAME}
     volumes:

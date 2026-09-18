@@ -38,7 +38,7 @@ export async function testWebhook(props: IProps) {
 
   try {
     const response = await axios.post(
-      "http://localhost:8080/api/v1/webhook/phonepe/verify",
+      "http://192.168.0.213:8080/api/v1/webhook/phonepe/verify",
       payload,
       {
         headers: {

@@ -71,6 +71,8 @@ const fallbackProducts: Product[] = [
   },
 ];
 
+
+
 const mapApiProduct = (item: ApiProduct): Product => {
   const image1 =
     item.images?.[0]?.image ??
@@ -115,9 +117,8 @@ function ProductCard({ product }: { product: Product }) {
         <div className="absolute bottom-4 left-4 flex gap-2">
           <button
             onMouseEnter={() => setHoveredImage(false)}
-            className={`w-8 h-8 rounded-full border-2 overflow-hidden transition-all ${
-              !hoveredImage ? "border-black" : "border-black/10"
-            }`}
+            className={`w-8 h-8 rounded-full border-2 overflow-hidden transition-all ${!hoveredImage ? "border-black" : "border-black/10"
+              }`}
           >
             <Image
               src={product.image1}
@@ -129,9 +130,8 @@ function ProductCard({ product }: { product: Product }) {
           </button>
           <button
             onMouseEnter={() => setHoveredImage(true)}
-            className={`w-8 h-8 rounded-full border-2 overflow-hidden transition-all ${
-              hoveredImage ? "border-black" : "border-black/10"
-            }`}
+            className={`w-8 h-8 rounded-full border-2 overflow-hidden transition-all ${hoveredImage ? "border-black" : "border-black/10"
+              }`}
           >
             <Image
               src={product.image2}
@@ -173,9 +173,11 @@ export default function ShopSection() {
     queryFn: () =>
       getRequest<{ data: ApiCategory[] }>("/api/v1/products/category"),
   });
+  console.log("categoryData11", categoryData);
 
   const firstCategory = categoryData?.data?.[2];
   const activeCategory = firstCategory?.slug || firstCategory?.name || "";
+
 
   const {
     data: productData,
@@ -190,7 +192,7 @@ export default function ShopSection() {
     enabled: Boolean(activeCategory),
   });
 
-  console.log("productData2222", activeCategory);
+  console.log("productData2222", productData);
 
   const apiProducts = productData?.data?.map(mapApiProduct) ?? [];
   const productsToDisplay =
@@ -243,11 +245,10 @@ export default function ShopSection() {
                 <button
                   key={cols}
                   onClick={() => setGridCols(cols)}
-                  className={`px-4 py-2 rounded-full font-medium text-sm transition-all ${
-                    gridCols === cols
-                      ? "bg-black text-white"
-                      : "bg-black/5 text-black hover:bg-black/10"
-                  }`}
+                  className={`px-4 py-2 rounded-full font-medium text-sm transition-all ${gridCols === cols
+                    ? "bg-black text-white"
+                    : "bg-black/5 text-black hover:bg-black/10"
+                    }`}
                 >
                   <ScrollingText
                     text={`${cols} Cols`}

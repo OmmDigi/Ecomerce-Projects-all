@@ -12,6 +12,13 @@ import BestSellersSection from "@/Component1/BestSellersSection";
 import CollectionsSection from "@/Component1/CollectionsSection";
 import StylesAndWear from "@/Component1/StylesAndWear";
 import BlogSection from "@/Component1/BlogSection";
+import CategoryShowcaseSection from "@/Component1/CategoryShowcaseSection";
+import FeaturedProductsSection from "@/Component1/FeaturedProductsSection";
+import PromotionSection from "@/Component1/PromotionSection";
+import WhyShopSection from "@/Component1/WhyShopSection";
+import TimeForYourselfSection from "@/Component1/TimeForYourselfSection";
+import InstagramSection from "@/Component1/InstagramSection";
+import FooterSection from "@/Component1/layout/FooterSection";
 
 export default function Home() {
   return (
@@ -25,12 +32,18 @@ export default function Home() {
     // </>
     <>
       <HeroSection />
-      <ShopSection />
+      <CategoryShowcaseSection />
+      <FeaturedProductsSection />
+      <PromotionSection />
+      {/* <ShopSection /> */}
       <VideoSection />
-      <BestSellersSection />
-      <CollectionsSection />
-      <StylesAndWear />
-      <BlogSection />
+      <WhyShopSection />
+      <TimeForYourselfSection />
+      <InstagramSection />
+      {/* <BestSellersSection /> */}
+      {/* <CollectionsSection /> */}
+      {/* <StylesAndWear /> */}
+      {/* <BlogSection /> */}
     </>
   );
 }

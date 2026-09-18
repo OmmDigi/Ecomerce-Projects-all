@@ -6,10 +6,10 @@ import Link from "next/link";
 export default function HeroSection() {
   return (
     <section
-      className="w-full min-h-screen flex items-center justify-start relative overflow-hidden -mt-20 pt-20  "
+      className="w-full min-h-190 flex items-center justify-start relative overflow-hidden -mt-20 pt-20  "
       style={{
         backgroundImage:
-          "url(https://glowing.g5plus.net/demo-01/wp-content/uploads/2022/08/bg-slider-01.jpg)",
+          "url(https://glowing.g5plus.net/main/wp-content/uploads/2022/04/bg-slider-28.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center right",
       }}

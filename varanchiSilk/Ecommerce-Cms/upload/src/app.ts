@@ -19,7 +19,7 @@ const app = express();
 
 const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",")
-  : ["http://localhost:3000", "http://localhost:3001"];
+  : ["*"];
 
 if (process.env.NODE_ENV === "development") {
   app.use(
@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === "development") {
         callback(null, true); // allow every origin
       },
       credentials: true,
-    })
+    }),
   );
 } else {
   app.use(
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === "development") {
         }
       },
       credentials: true,
-    })
+    }),
   );
 }
 
@@ -49,7 +49,7 @@ app.use(express.json());
 
 app.use(
   `/${PUBLIC_FOLDER_NAME}`,
-  express.static(path.join(__dirname, `../${PUBLIC_FOLDER_NAME}`))
+  express.static(path.join(__dirname, `../${PUBLIC_FOLDER_NAME}`)),
 );
 
 app.get("/", (req, res) => {

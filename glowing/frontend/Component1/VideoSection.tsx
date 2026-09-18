@@ -26,8 +26,8 @@ export default function VideoSection() {
       <div className="absolute inset-0 w-full h-full">
         <video
           ref={videoRef}
-          src="https://framerusercontent.com/assets/tZkQWQqHkaDjOS2aRu06UvSAiY.mp4"
-          poster="https://framerusercontent.com/images/UK7WDlVvUzol044n909Euv7v8.png?width=1024&height=1024"
+          src="/hero/9697681-uhd_2560_1440_25fps.mp4"
+          poster="/hero/hero-banner.webp"
           autoPlay
           loop
           muted

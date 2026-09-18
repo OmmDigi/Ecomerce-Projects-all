@@ -227,10 +227,10 @@ const WishlistPage = () => {
                             <button
                               onClick={() => addToCart(item as any)}
                               className=" px-6 py-2  bg-[#000000] hover:bg-gray-800 text-white text-sm font-medium rounded  transition-colors  border-dotted border-2 w-[90%] "
-                              //                      className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100
-                              //    bg-[#000000] hover:bg-gray-800 text-white text-sm font-bold rounded px-4 py-2
-                              //    transition-all duration-800 group-hover:translate-y-0
-                              //    translate-y-3 border-dotted border-2 w-[90%] "
+                            //                      className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100
+                            //    bg-[#000000] hover:bg-gray-800 text-white text-sm font-bold rounded px-4 py-2
+                            //    transition-all duration-800 group-hover:translate-y-0
+                            //    translate-y-3 border-dotted border-2 w-[90%] "
                             >
                               Add to cart
                             </button>

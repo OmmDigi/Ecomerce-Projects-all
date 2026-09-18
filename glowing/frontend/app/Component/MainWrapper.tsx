@@ -10,5 +10,5 @@ export default function MainWrapper({
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  return <main className={isHome ? "" : "pt-15"}>{children}</main>;
+  return <main >{children}</main>;
 }

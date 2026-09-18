@@ -10,6 +10,7 @@ import Marquee from "@/Component1/Marquee";
 import Navbar from "@/Component1/layout/Navbar";
 import MainWrapper from "./Component/MainWrapper";
 import Footer from "@/Component1/layout/Footer";
+import FooterSection from "@/Component1/layout/FooterSection";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,7 +57,9 @@ export default function RootLayout({
           {/* <Header /> */}
           <MainWrapper>{children}</MainWrapper>
           <CartDrawer />
-          <Footer />
+          <FooterSection />
+
+          {/* <Footer /> */}
           {/* <Footer /> */}
         </QueryClientWrapper>
       </body>
